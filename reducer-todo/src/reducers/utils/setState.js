@@ -1,6 +1,6 @@
-const setState = key => (state, action) => ({
+const setState = key => (state, payload) => ({
   ...state,
-  [key]: action.payload,
+  [key]: payload,
 });
 
 export default setState;
