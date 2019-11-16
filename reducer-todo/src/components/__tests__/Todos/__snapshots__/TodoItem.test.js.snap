@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoItem component tests should render a todo item 1`] = `
+<li
+  class="todo-item"
+  completed="0"
+  id="todo-1"
+>
+  Do something
+</li>
+`;
