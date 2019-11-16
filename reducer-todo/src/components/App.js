@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { TodoList } from "./Todos";
 
 const App = () => {
   // Set up initial state
@@ -24,14 +25,15 @@ const App = () => {
   };
 
   // Initialize reducer w/ initialState
-  const [state, dispatch] = useReducer(initialState);
+  const reducer = () => {};
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <div className="App">
       <h1>Todo App</h1>
       {/* Todo form */}
       <h2>Todo List</h2>
-      {/* Todo list */}
+      <TodoList todos={state.todos} />
     </div>
   );
 };
