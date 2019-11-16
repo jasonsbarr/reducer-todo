@@ -1,4 +1,4 @@
-import setState from "../utils/setState";
+import setState from "../../utils/setState";
 
 describe("Set state util function", () => {
   const oldState = {
