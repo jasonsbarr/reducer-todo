@@ -4,7 +4,23 @@ const App = () => {
   // Set up initial state
   const initialState = {
     app: "viewTodos",
-    todos: [],
+    todos: [
+      {
+        item: "Learn about reducers",
+        completed: false,
+        id: "todo-1",
+      },
+      {
+        item: "Learn more about reducers",
+        completed: false,
+        id: "todo-2",
+      },
+      {
+        item: "Learn everything there is to know about reducers",
+        completed: false,
+        id: "todo-3",
+      },
+    ],
   };
 
   // Initialize reducer w/ initialState
@@ -12,9 +28,10 @@ const App = () => {
 
   return (
     <div className="App">
+      <h1>Todo App</h1>
       {/* Todo form */}
+      <h2>Todo List</h2>
       {/* Todo list */}
-      App
     </div>
   );
 };
