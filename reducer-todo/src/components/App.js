@@ -1,39 +1,19 @@
-import React, { useReducer } from "react";
+import React from "react";
+
+import { Route } from "react-router-dom";
 import { TodoList } from "./Todos";
 
 const App = () => {
-  // Set up initial state
-  const initialState = {
-    app: "viewTodos",
-    todos: [
-      {
-        item: "Learn about reducers",
-        completed: false,
-        id: "todo-1",
-      },
-      {
-        item: "Learn more about reducers",
-        completed: false,
-        id: "todo-2",
-      },
-      {
-        item: "Learn everything there is to know about reducers",
-        completed: false,
-        id: "todo-3",
-      },
-    ],
-  };
-
-  // Initialize reducer w/ initialState
-  const reducer = () => {};
-  const [state, dispatch] = useReducer(reducer, initialState);
-
   return (
     <div className="App">
-      <h1>Todo App</h1>
-      {/* Todo form */}
-      <h2>Todo List</h2>
-      <TodoList todos={state.todos} />
+      <Route exact path="/" component={TodoList} />
+      {/* App controls:
+        Form w/ submit
+        Filter: all, open, done
+        Filter all, tag
+        Clear done
+        Order by: alpha, created, due, priority
+       */}
     </div>
   );
 };
