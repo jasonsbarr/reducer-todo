@@ -1,15 +1,17 @@
 import React, { useReducer } from "react";
 import { Route } from "react-router-dom";
 import TodoContext from "../contexts/TodoContext";
-import reducer from "../reducers/todos";
+import reducer from "../reducers/todo";
 import { TodoList, TodoAdd } from "./Todos";
 import Header from "./Header";
-import { GET_TODO } from "../actions/todos";
+import { GET_TODO, SET_TODO } from "../actions/todos";
 
 const App = () => {
   const [todo, dispatch] = useReducer(reducer, {});
 
   const getTodo = id => dispatch({ type: GET_TODO, payload: id });
+
+  const addTodo = todo => dispatch({ type: SET_TODO, payload: todo });
 
   return (
     <div className="App">
@@ -22,7 +24,7 @@ const App = () => {
       Order by: alpha, created, due, priority
     */}
       <Route exact path="/" component={TodoList} />
-      <TodoContext.Provider value={{ todo, getTodo }}>
+      <TodoContext.Provider value={{ todo, getTodo, addTodo }}>
         {/* TodoItem */}
         {/* TodoEdit */}
         <Route path="/todo/add" component={TodoAdd} />
