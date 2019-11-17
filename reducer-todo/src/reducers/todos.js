@@ -10,15 +10,6 @@ const SET_TODOS = (state, { payload }) => {
   return setTodos(state, todos);
 };
 
-const GET_TODO = (state, { payload: id }) => {
-  return state.todos.find(todoF => Number(id) === Number(todoF.id));
-};
-
-const ADD_TODO = (state, { payload }) => {
-  const todos = [...state.todos, payload];
-  return setTodos(state, todos);
-};
-
 const TOGGLE_TODO_COMPLETE = (state, { payload }) => {
   const todos = state.todos.map(todo =>
     todo.id === payload.id
@@ -33,8 +24,6 @@ export default makeReducer(
   {
     GET_TODOS,
     SET_TODOS,
-    GET_TODO,
-    ADD_TODO,
     TOGGLE_TODO_COMPLETE,
   },
   { todos: [] },
