@@ -11,7 +11,7 @@ const defaultState = {
 
 const TodoForm = ({ handleSubmit }) => {
   const { pathname } = useLocation();
-  const todo = useContext(TodoContext);
+  const { todo } = useContext(TodoContext);
   const [formState, setFormState] = useState(
     pathname === "/todo/add" ? defaultState : todo,
   );
