@@ -1,22 +1,38 @@
 import React, { useEffect, useReducer } from "react";
 import Axios from "axios";
-import { SET_TODOS } from "../../actions/todos";
+import { SET_TODOS, TOGGLE_TODO_COMPLETE } from "../../actions/todos";
 import reducer from "../../reducers/todos";
 import { TodoItem } from ".";
 
 const TodoList = ({ todos }) => {
+  const apiUrl = `http://localhost:4000/todos`;
   // Set up initial state
   const initialState = {
     todos: [],
-    apiUrl: `http://localhost:4000/todos`,
   };
 
   // Initialize reducer w/ initialState
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const handleCompleteTodo = todo => {
+    const changed = { ...todo, completed: !todo.completed };
+    const options = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      data: JSON.stringify(changed),
+      url: `${apiUrl}/${todo.id}`,
+    };
+
+    dispatch({ type: TOGGLE_TODO_COMPLETE, payload: todo });
+
+    Axios(options)
+      .then(res => console.log(res.data))
+      .catch(err => console.error(err));
+  };
+
   // Initial fetch todos, dispatch to set state
   useEffect(() => {
-    Axios.get(state.apiUrl)
+    Axios.get(apiUrl)
       .then(res =>
         dispatch({
           type: SET_TODOS,
@@ -24,7 +40,7 @@ const TodoList = ({ todos }) => {
         }),
       )
       .catch(err => console.error(err));
-  }, [state.apiUrl]);
+  }, [apiUrl]);
 
   return (
     <>
@@ -32,7 +48,11 @@ const TodoList = ({ todos }) => {
       {state.todos.length ? (
         <ul>
           {state.todos.map(todo => (
-            <TodoItem key={todo.id} todo={todo} />
+            <TodoItem
+              onCompleteTodo={handleCompleteTodo}
+              key={todo.uuid}
+              todo={todo}
+            />
           ))}
         </ul>
       ) : (
