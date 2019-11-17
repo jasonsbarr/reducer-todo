@@ -2,17 +2,6 @@ import makeReducer from "./utils/makeReducer";
 import setState from "./utils/setState";
 
 const setTodos = setState("todos");
-/*
- * todo interface
- * todo = {
- *  item: String
- *  completed: Bool
- *  id: String
- *  created_at: Date
- *  due: Date/null
- *  Priority: Int
- * }
- */
 
 const GET_TODOS = (state, action) => state.todos;
 
