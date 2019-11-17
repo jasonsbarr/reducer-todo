@@ -8,20 +8,40 @@ const setTodos = setState("todos");
  *  item: String
  *  completed: Bool
  *  id: String
+ *  created_at: Date
+ *  due: Date/null
+ *  Priority: Int
  * }
  */
 
 const GET_TODOS = (state, action) => state.todos;
 
-const ADD_TODO = (state, action) => {
-  const todos = [...state.todos, action.payload];
+const SET_TODOS = (state, { payload }) => {
+  const todos = [...state.todos, ...payload];
+  return setTodos(state, todos);
+};
+
+const ADD_TODO = (state, { payload }) => {
+  const todos = [...state.todos, payload];
+  return setTodos(state, todos);
+};
+
+const TOGGLE_TODO_COMPLETE = (state, { payload }) => {
+  const todos = state.todos.map(todo =>
+    todo.id === payload.id
+      ? { ...todo, completed: !payload.completed }
+      : todo,
+  );
+
   return setTodos(state, todos);
 };
 
 export default makeReducer(
   {
     GET_TODOS,
+    SET_TODOS,
     ADD_TODO,
+    TOGGLE_TODO_COMPLETE,
   },
   { todos: [] },
 );
