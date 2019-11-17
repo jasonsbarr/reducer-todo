@@ -4,7 +4,7 @@ import TodoContext from "../contexts/TodoContext";
 import reducer from "../reducers/todo";
 import { TodoList, TodoAdd } from "./Todos";
 import Header from "./Header";
-import { GET_TODO, SET_TODO } from "../actions/todos";
+import { GET_TODO, SET_TODO, CLEAR_TODO } from "../actions/todos";
 
 const App = () => {
   const [todo, dispatch] = useReducer(reducer, {});
@@ -13,18 +13,15 @@ const App = () => {
 
   const addTodo = todo => dispatch({ type: SET_TODO, payload: todo });
 
+  const clearTodo = () => dispatch({ type: CLEAR_TODO });
+
   return (
     <div className="App">
       <Header />
-      {/* App controls:
-      Form w/ submit
-      Filter: all, open, done
-      Filter all, tag
-      Clear done
-      Order by: alpha, created, due, priority
-    */}
       <Route exact path="/" component={TodoList} />
-      <TodoContext.Provider value={{ todo, getTodo, addTodo }}>
+      <TodoContext.Provider
+        value={{ todo, getTodo, addTodo, clearTodo }}
+      >
         {/* TodoItem */}
         {/* TodoEdit */}
         <Route path="/todo/add" component={TodoAdd} />
