@@ -20,11 +20,17 @@ const TOGGLE_TODO_COMPLETE = (state, { payload }) => {
   return setTodos(state, todos);
 };
 
+const CLEAR_COMPLETED_TODOS = (state, action) => {
+  const cleared = state.todos.filter(todo => !todo.completed);
+  return setTodos(state, cleared);
+};
+
 export default makeReducer(
   {
     GET_TODOS,
     SET_TODOS,
     TOGGLE_TODO_COMPLETE,
+    CLEAR_COMPLETED_TODOS,
   },
   { todos: [] },
 );

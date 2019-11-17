@@ -11,7 +11,10 @@ const SET_TODO = (state, { payload }) => {
   return setTodo(state, payload);
 };
 
+const CLEAR_TODO = () => ({});
+
 export default makeReducer({
   GET_TODO,
   SET_TODO,
+  CLEAR_TODO,
 });
