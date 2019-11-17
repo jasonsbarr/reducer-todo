@@ -10,7 +10,7 @@ const Header = () => {
       <Link to="/">Todo List</Link>
       <nav>
         {pathname !== "/todo/add" && (
-          <button onClick={() => history.push("/todo-add")}>+</button>
+          <button onClick={() => history.push("/todo/add")}>+</button>
         )}
       </nav>
     </header>
