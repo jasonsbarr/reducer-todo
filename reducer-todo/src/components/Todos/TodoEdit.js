@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import useFetchSingleTodo from "../../hooks/useFetchSingleTodo";
 import useTodos from "../../hooks/useTodos";
@@ -9,7 +9,18 @@ const TodoEdit = () => {
   const { todoId } = useParams();
   const [, dispatch] = useTodos();
   const history = useHistory();
-  const todo = useFetchSingleTodo(Number(todoId));
+  const [todo, setTodo] = useState(null);
+  const [message, setMessage] = useState("");
+
+  useFetchSingleTodo(Number(todoId))
+    .then(([todo, message]) => {
+      setTodo(todo);
+      setMessage(message);
+    })
+    .catch(err => {
+      setMessage("Something's gone horribly wrong.");
+      console.error(err);
+    });
 
   const handleFormSubmit = () => {};
 
