@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-const defaultState = {
+const defaultValues = {
   item: "",
   due_at_date: "",
   due_at_time: "",
@@ -9,11 +9,23 @@ const defaultState = {
 };
 
 const TodoForm = ({ handleSubmit, todo = undefined }) => {
-  console.log(todo);
   const { pathname } = useLocation();
-  const [formState, setFormState] = useState(
-    pathname === "/todo/add" ? defaultState : todo,
-  );
+
+  const formValues = {
+    item: todo ? todo.item : defaultValues.item,
+    due_at_date: todo.due_at
+      ? todo.due_at.toISOString().split("T")[0]
+      : defaultValues.due_at_date,
+    due_at_time: todo.due_at
+      ? todo.due_at
+          .toISOString()
+          .split("T")[1]
+          .split(".")[0]
+      : defaultValues.due_at_time,
+    priority: todo ? todo.priority : defaultValues.priority,
+  };
+
+  const [formState, setFormState] = useState(formValues);
 
   const handleChange = event => {
     setFormState({
@@ -55,6 +67,7 @@ const TodoForm = ({ handleSubmit, todo = undefined }) => {
         </span>
       </label>
       <label htmlFor="priority">
+        Priority:
         <select
           name="priority"
           id="priority"
