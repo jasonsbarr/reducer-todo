@@ -21,8 +21,8 @@ const CLEAR_ALL_TODOS = () => ({ todos: [] });
 
 // Individual todo functions
 
-const ADD_TODO = (state, { payload }) => {
-  const todos = [...state.todos, payload];
+const ADD_TODO = (state, { payload: todo }) => {
+  const todos = [...state.todos, todo];
   return setTodos(state, todos);
 };
 
@@ -32,14 +32,22 @@ const GET_TODO = (state, { payload: id }) => {
 
 const SET_TODO = (state, { payload: todo }) => {
   const todos = [todo];
-  return setState(state, todos);
+  return setTodos(state, todos);
 };
 
-const TOGGLE_TODO_COMPLETE = (state, { payload }) => {
-  const todos = state.todos.map(todo =>
-    todo.id === payload.id
-      ? { ...todo, completed: !payload.completed }
+const TOGGLE_TODO_COMPLETE = (state, { payload: todo }) => {
+  const todos = state.todos.map(sTodo =>
+    sTodo.id === todo.id
+      ? { ...todo, completed: !todo.completed }
       : todo,
+  );
+
+  return setTodos(state, todos);
+};
+
+const EDIT_TODO = (state, { payload: todo }) => {
+  const todos = state.todos.map(sTodo =>
+    sTodo.id === todo.id ? todo : sTodo,
   );
 
   return setTodos(state, todos);
@@ -60,6 +68,7 @@ export default makeReducer(
     GET_TODO,
     SET_TODO,
     TOGGLE_TODO_COMPLETE,
+    EDIT_TODO,
     DELETE_TODO,
   },
   { todos: [] },
