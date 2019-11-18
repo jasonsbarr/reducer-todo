@@ -39,7 +39,7 @@ const TodoAdd = () => {
       .then(res => {
         history.push("/");
       })
-      .catch(error => console.log(error));
+      .catch(err => console.error(err));
   };
   return (
     <>
