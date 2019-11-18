@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import {
   SET_TODOS,
@@ -18,6 +19,7 @@ const TodoList = ({ todos }) => {
   // Initialize reducer w/ initialState
   const [state, dispatch] = useTodos();
   const [message, setMessage] = useState("Loading...");
+  const history = useHistory();
 
   const handleCompleteTodo = todo => {
     const changed = {
@@ -35,6 +37,10 @@ const TodoList = ({ todos }) => {
     dispatch({ type: TOGGLE_TODO_COMPLETE, payload: todo });
 
     Axios(options).catch(err => console.error(err));
+  };
+
+  const handleEditTodo = todo => {
+    history.push(`/todo/${todo.id}/edit`);
   };
 
   const handleDeleteTodo = todo => {
@@ -81,6 +87,7 @@ const TodoList = ({ todos }) => {
             {state.todos.map(todo => (
               <TodoItem
                 onCompleteTodo={handleCompleteTodo}
+                onEditTodo={handleEditTodo}
                 onDeleteTodo={handleDeleteTodo}
                 key={todo.uuid}
                 todo={todo}
