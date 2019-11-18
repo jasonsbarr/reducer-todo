@@ -4,8 +4,17 @@ exports[`TodoItem component tests should render a todo item 1`] = `
 <li
   class="todo-item"
   completed="0"
-  id="todo-1"
+  id="todo-todo-1"
 >
-  Do something
+  <div
+    class="todo-item-container"
+  >
+    <p>
+      Do something
+    </p>
+    <button>
+      ✓
+    </button>
+  </div>
 </li>
 `;
