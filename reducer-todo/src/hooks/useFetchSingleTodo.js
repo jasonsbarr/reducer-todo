@@ -35,7 +35,9 @@ const useFetchSingleTodo = todoId => {
   }, []); // eslint-disable-line
   // why doesn't an empty array work?
 
-  return [todo, message];
+  return new Promise((resolve, reject) => {
+    resolve([todo, message]);
+  });
 };
 
 export default useFetchSingleTodo;

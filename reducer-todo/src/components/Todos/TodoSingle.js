@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetchSingleTodo from "../../hooks/useFetchSingleTodo";
 
 const TodoSingle = () => {
   const { todoId } = useParams();
-  const [todo, message] = useFetchSingleTodo(Number(todoId));
+  const [todo, setTodo] = useState(null);
+  const [message, setMessage] = useState("");
+
+  useFetchSingleTodo(Number(todoId))
+    .then(([todo, message]) => {
+      setTodo(todo);
+      setMessage(message);
+    })
+    .catch(err => {
+      setMessage("Something went wrong...");
+      console.error(err);
+    });
 
   return todo ? (
     <div className="todo-single">
