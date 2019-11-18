@@ -10,6 +10,7 @@ const TodoAdd = () => {
   const url = `http://localhost:4000/todos`;
   const [, dispatch] = useTodos();
   const history = useHistory();
+
   const handleFormSubmit = event => {
     event.preventDefault();
 

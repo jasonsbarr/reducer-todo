@@ -1,11 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const TodoItem = ({ todo, onCompleteTodo, onDeleteTodo } = {}) => {
+const TodoItem = ({
+  todo,
+  onCompleteTodo,
+  onEditTodo,
+  onDeleteTodo,
+} = {}) => {
   const { id, item, completed, uuid } = todo;
 
   const handleCompleteClick = () => {
     onCompleteTodo(todo);
+  };
+
+  const handleEditClick = () => {
+    onEditTodo(todo);
   };
 
   const handleDeleteClick = () => {
@@ -26,6 +35,7 @@ const TodoItem = ({ todo, onCompleteTodo, onDeleteTodo } = {}) => {
         <button onClick={handleCompleteClick}>
           {completed ? "⍻" : "✓"}
         </button>
+        <button onClick={handleEditClick}>🖉</button>
         <button id={`delete-${id}`} onClick={handleDeleteClick}>
           ×
         </button>
