@@ -2,12 +2,12 @@ import React, { useContext } from "react";
 import uuidv4 from "uuid/v4";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
-import TodoContext from "../../contexts/TodoContext";
+import TodosContext from "../../contexts/TodosContext";
 import TodoForm from "./TodoForm";
 
 const TodoAdd = () => {
   const url = `http://localhost:4000/todos`;
-  const { addTodo } = useContext(TodoContext);
+  const { addTodo } = useContext(TodosContext);
   const history = useHistory();
   const handleFormSubmit = event => {
     event.preventDefault();

@@ -1,32 +1,21 @@
 import React, { useReducer } from "react";
 import { Route } from "react-router-dom";
-import TodoContext from "../contexts/TodoContext";
-import reducer from "../reducers/todo";
-import { TodoList, TodoAdd } from "./Todos";
+import reducer from "../reducers/todos";
+import TodosContext from "../contexts/TodosContext";
 import Header from "./Header";
-import { GET_TODO, SET_TODO, CLEAR_TODO } from "../actions/todos";
+import { TodoList, TodoAdd } from "./Todos";
 
 const App = () => {
-  const [todo, dispatch] = useReducer(reducer, {});
-
-  const getTodo = id => dispatch({ type: GET_TODO, payload: id });
-
-  const addTodo = todo => dispatch({ type: SET_TODO, payload: todo });
-
-  const clearTodo = () => dispatch({ type: CLEAR_TODO });
-
   return (
-    <div className="App">
-      <Header />
-      <Route exact path="/" component={TodoList} />
-      <TodoContext.Provider
-        value={{ todo, getTodo, addTodo, clearTodo }}
-      >
+    <TodosContext.Provider value={useReducer(reducer, [])}>
+      <div className="App">
+        <Header />
+        <Route exact path="/" component={TodoList} />
         {/* TodoItem */}
         {/* TodoEdit */}
         <Route path="/todo/add" component={TodoAdd} />
-      </TodoContext.Provider>
-    </div>
+      </div>
+    </TodosContext.Provider>
   );
 };
 

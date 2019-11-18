@@ -1,23 +1,19 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import {
   SET_TODOS,
   TOGGLE_TODO_COMPLETE,
   CLEAR_COMPLETED_TODOS,
 } from "../../actions/todos";
-import reducer from "../../reducers/todos";
+import useTodos from "../../hooks/useTodos";
 import { TodoItem } from ".";
 import TodoListControls from "./TodoListControls";
 
 const TodoList = ({ todos }) => {
   const apiUrl = `http://localhost:4000/todos`;
-  // Set up initial state
-  const initialState = {
-    todos: [],
-  };
 
   // Initialize reducer w/ initialState
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useTodos();
   const [message, setMessage] = useState("Loading...");
 
   const handleCompleteTodo = todo => {
@@ -51,7 +47,7 @@ const TodoList = ({ todos }) => {
       .catch(err =>
         setMessage("Something went wrong. Please try again later."),
       );
-  }, [apiUrl]);
+  }, [apiUrl, dispatch]);
 
   return (
     <>

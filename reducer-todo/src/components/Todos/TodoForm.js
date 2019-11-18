@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
-import TodoContext from "../../contexts/TodoContext";
+import TodosContext from "../../contexts/TodosContext";
 
 const defaultState = {
   item: "",
@@ -11,7 +11,7 @@ const defaultState = {
 
 const TodoForm = ({ handleSubmit }) => {
   const { pathname } = useLocation();
-  const { todo } = useContext(TodoContext);
+  const { todo } = useContext(TodosContext);
   const [formState, setFormState] = useState(
     pathname === "/todo/add" ? defaultState : todo,
   );
