@@ -16,7 +16,7 @@ const TodoAdd = () => {
     const newTodo = {
       uuid: uuidv4(),
       item: event.target.item.value,
-      priority: event.target.priority.value,
+      priority: Number(event.target.priority.value),
       completed: false,
       due_at: new Date(
         `${event.target.due_at_date.value}T${event.target.due_at_time.value}Z`,

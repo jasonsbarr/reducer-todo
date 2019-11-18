@@ -10,6 +10,7 @@ import {
 import useTodos from "../../hooks/useTodos";
 import { TodoItem } from ".";
 import TodoListControls from "./TodoListControls";
+import mapRawTodo from "../../utils/mapRawTodo";
 
 const TodoList = ({ todos }) => {
   const apiUrl = `http://localhost:4000/todos`;
@@ -51,16 +52,18 @@ const TodoList = ({ todos }) => {
   const handleClearCompletedTodos = () =>
     dispatch({ type: CLEAR_COMPLETED_TODOS });
 
-  // Initial fetch todos, dispatch to set state
+  // Fetch todos, dispatch to set state
   useEffect(() => {
+    // Keeps from accidentally doubling list in state
     dispatch({ type: CLEAR_ALL_TODOS });
     Axios.get(apiUrl)
-      .then(res =>
+      .then(res => {
+        const todos = res.data.map(todo => mapRawTodo(todo));
         dispatch({
           type: SET_TODOS,
-          payload: res.data,
-        }),
-      )
+          payload: todos,
+        });
+      })
       .catch(err =>
         setMessage("Something went wrong. Please try again later."),
       );

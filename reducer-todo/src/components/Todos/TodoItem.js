@@ -1,9 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const TodoItem = ({ todo, onCompleteTodo } = {}) => {
+const TodoItem = ({ todo, onCompleteTodo, onDeleteTodo } = {}) => {
   const { id, item, completed, uuid } = todo;
-  const handleClick = () => {
+
+  const handleCompleteClick = () => {
     onCompleteTodo(todo);
+  };
+
+  const handleDeleteClick = () => {
+    onDeleteTodo(todo);
   };
 
   return (
@@ -14,8 +20,15 @@ const TodoItem = ({ todo, onCompleteTodo } = {}) => {
       className={`todo-item${completed ? " completed" : ""}`}
     >
       <div className="todo-item-container">
-        <p>{item}</p>
-        <button onClick={handleClick}>{completed ? "⍻" : "✓"}</button>
+        <p>
+          <Link to={`/todo/${id}`}>{item}</Link>
+        </p>
+        <button onClick={handleCompleteClick}>
+          {completed ? "⍻" : "✓"}
+        </button>
+        <button id={`delete-${id}`} onClick={handleDeleteClick}>
+          ×
+        </button>
       </div>
     </li>
   );

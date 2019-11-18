@@ -30,6 +30,11 @@ const GET_TODO = (state, { payload: id }) => {
   return state.todos.filter(todo => Number(id) === Number(todo.id));
 };
 
+const SET_TODO = (state, { payload: todo }) => {
+  const todos = [todo];
+  return setState(state, todos);
+};
+
 const TOGGLE_TODO_COMPLETE = (state, { payload }) => {
   const todos = state.todos.map(todo =>
     todo.id === payload.id
@@ -37,6 +42,11 @@ const TOGGLE_TODO_COMPLETE = (state, { payload }) => {
       : todo,
   );
 
+  return setTodos(state, todos);
+};
+
+const DELETE_TODO = (state, { payload: id }) => {
+  const todos = state.todos.filter(todo => todo.id !== id);
   return setTodos(state, todos);
 };
 
@@ -48,7 +58,9 @@ export default makeReducer(
     CLEAR_ALL_TODOS,
     ADD_TODO,
     GET_TODO,
+    SET_TODO,
     TOGGLE_TODO_COMPLETE,
+    DELETE_TODO,
   },
   { todos: [] },
 );
