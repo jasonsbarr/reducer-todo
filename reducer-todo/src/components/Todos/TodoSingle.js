@@ -1,43 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
-import Axios from "axios";
-import useTodos from "../../hooks/useTodos";
-import mapRawTodo from "../../utils/mapRawTodo";
+import useFetchSingleTodo from "../../hooks/useFetchSingleTodo";
 
 const TodoSingle = () => {
   const { todoId } = useParams();
-  const [{ todos }] = useTodos();
-  const [todo, setTodo] = useState(null);
-  const [message, setMessage] = useState("Loading...");
-
-  useEffect(() => {
-    // If todos are already saved in global state, get matching todo
-    todos && todos.length
-      ? new Promise((resolve, reject) => {
-          resolve(
-            todos.filter(sTodo => sTodo.id === Number(todoId))[0],
-          );
-        })
-          .then(todo => setTodo(todo))
-          .catch(err => {
-            setMessage(
-              "Something went wrong. Try again in a minute.",
-            );
-            console.error(err);
-          })
-      : // Otherwise fetch matching todo from API
-        Axios.get(`http://localhost:4000/todos/${todoId}`)
-          .then(res => {
-            setTodo(mapRawTodo(res.data));
-          })
-          .catch(err => {
-            setMessage(
-              "Something went wrong. Try again in a minute.",
-            );
-            console.error(err);
-          });
-  }, []); // eslint-disable-line
-  // why doesn't an empty array work?
+  const [todo, message] = useFetchSingleTodo(Number(todoId));
 
   return todo ? (
     <div className="todo-single">
