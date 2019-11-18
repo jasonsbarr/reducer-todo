@@ -4,6 +4,7 @@ import {
   SET_TODOS,
   TOGGLE_TODO_COMPLETE,
   CLEAR_COMPLETED_TODOS,
+  CLEAR_ALL_TODOS,
 } from "../../actions/todos";
 import useTodos from "../../hooks/useTodos";
 import { TodoItem } from ".";
@@ -37,6 +38,7 @@ const TodoList = ({ todos }) => {
 
   // Initial fetch todos, dispatch to set state
   useEffect(() => {
+    dispatch({ type: CLEAR_ALL_TODOS });
     Axios.get(apiUrl)
       .then(res =>
         dispatch({

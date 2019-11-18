@@ -7,7 +7,7 @@ import { TodoList, TodoAdd } from "./Todos";
 
 const App = () => {
   return (
-    <TodosContext.Provider value={useReducer(reducer, [])}>
+    <TodosContext.Provider value={useReducer(reducer, { todos: [] })}>
       <div className="App">
         <Header />
         <Route exact path="/" component={TodoList} />

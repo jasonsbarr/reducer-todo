@@ -8,28 +8,30 @@ const setTodos = setState("todos");
 const GET_TODOS = (state, action) => state.todos;
 
 const SET_TODOS = (state, { payload }) => {
-  const todos = [...state, ...payload];
+  const todos = [...state.todos, ...payload];
   return setTodos(state, todos);
 };
 
 const CLEAR_COMPLETED_TODOS = (state, action) => {
-  const cleared = state.filter(todo => !todo.completed);
+  const cleared = state.todos.filter(todo => !todo.completed);
   return setTodos(state, cleared);
 };
+
+const CLEAR_ALL_TODOS = () => ({ todos: [] });
 
 // Individual todo functions
 
 const ADD_TODO = (state, { payload }) => {
-  const todos = [...state, payload];
+  const todos = [...state.todos, payload];
   return setTodos(state, todos);
 };
 
 const GET_TODO = (state, { payload: id }) => {
-  return state.filter(todo => Number(id) === Number(todo.id));
+  return state.todos.filter(todo => Number(id) === Number(todo.id));
 };
 
 const TOGGLE_TODO_COMPLETE = (state, { payload }) => {
-  const todos = state.map(todo =>
+  const todos = state.todos.map(todo =>
     todo.id === payload.id
       ? { ...todo, completed: !payload.completed }
       : todo,
@@ -43,6 +45,7 @@ export default makeReducer(
     GET_TODOS,
     SET_TODOS,
     CLEAR_COMPLETED_TODOS,
+    CLEAR_ALL_TODOS,
     ADD_TODO,
     GET_TODO,
     TOGGLE_TODO_COMPLETE,

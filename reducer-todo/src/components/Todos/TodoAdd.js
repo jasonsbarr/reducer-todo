@@ -1,13 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import uuidv4 from "uuid/v4";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
-import TodosContext from "../../contexts/TodosContext";
+import { ADD_TODO } from "../../actions/todos";
+import useTodos from "../../hooks/useTodos";
 import TodoForm from "./TodoForm";
 
 const TodoAdd = () => {
   const url = `http://localhost:4000/todos`;
-  const { addTodo } = useContext(TodosContext);
+  const [, dispatch] = useTodos();
   const history = useHistory();
   const handleFormSubmit = event => {
     event.preventDefault();
@@ -24,6 +25,8 @@ const TodoAdd = () => {
       updated_at: null,
     };
 
+    dispatch({ type: ADD_TODO, payload: newTodo });
+
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -33,7 +36,6 @@ const TodoAdd = () => {
 
     Axios(options)
       .then(res => {
-        addTodo(res.data);
         history.push("/");
       })
       .catch(error => console.log(error));
