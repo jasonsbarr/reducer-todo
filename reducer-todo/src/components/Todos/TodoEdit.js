@@ -28,7 +28,11 @@ const TodoEdit = () => {
     <>
       <h1>Edit Todo</h1>
       <div className="form-container">
-        <TodoForm todo={todo} handleSubmit={handleFormSubmit} />
+        {todo ? (
+          <TodoForm todo={todo} handleSubmit={handleFormSubmit} />
+        ) : (
+          <div>{message}</div>
+        )}
       </div>
     </>
   );
