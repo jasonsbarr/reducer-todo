@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetchSingleTodo from "../../hooks/useFetchSingleTodo";
+import TodoItemControls from "./TodoItemControls";
 
 const TodoSingle = () => {
   const { todoId } = useParams();
@@ -19,6 +20,7 @@ const TodoSingle = () => {
 
   return todo ? (
     <div className="todo-single">
+      <TodoItemControls todo={todo} />
       <p>
         <span className="label">Item:</span> {todo.item}
       </p>
