@@ -47,7 +47,7 @@ const TOGGLE_TODO_COMPLETE = (state, { payload: todo }) => {
 
 const EDIT_TODO = (state, { payload: todo }) => {
   const todos = state.todos.map(sTodo =>
-    sTodo.id === todo.id ? todo : sTodo,
+    Number(sTodo.id) === Number(todo.id) ? todo : sTodo,
   );
 
   return setTodos(state, todos);
