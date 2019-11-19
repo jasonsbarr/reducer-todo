@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import TodoItemControls from "./TodoItemControls";
+import returnRelativeDueDate from "../../utils/returnRelativeDueDate";
 
 const TodoItem = ({
   todo,
@@ -24,10 +25,7 @@ const TodoItem = ({
         <p>
           <span className="label">Priority:</span> {priority}
         </p>
-        <p>
-          <span className="label">Due at:</span>
-          {due_at ? ` ${due_at.toLocaleString()}` : " No due date"}
-        </p>
+        <p>{returnRelativeDueDate(due_at)}</p>
         <TodoItemControls todo={todo} />
       </div>
     </li>

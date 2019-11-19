@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetchSingleTodo from "../../hooks/useFetchSingleTodo";
 import TodoItemControls from "./TodoItemControls";
+import returnRelativeDueDate from "../../utils/returnRelativeDueDate";
 
 const TodoSingle = () => {
   const { todoId } = useParams();
@@ -30,7 +31,7 @@ const TodoSingle = () => {
       </p>
       <p>
         <span className="label">Due:</span>{" "}
-        {todo.due_at ? todo.due_at.toLocaleString() : "No due date"}
+        {returnRelativeDueDate(todo.due_at)}
       </p>
       <p>
         <span className="label">Priority:</span> {todo.priority}
