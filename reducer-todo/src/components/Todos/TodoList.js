@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import {
   SET_TODOS,
   CLEAR_COMPLETED_TODOS,
   CLEAR_ALL_TODOS,
-  DELETE_TODO,
-  EDIT_TODO,
 } from "../../actions/todos";
 import useTodos from "../../hooks/useTodos";
 import { TodoItem } from ".";
@@ -19,42 +16,6 @@ const TodoList = ({ todos }) => {
   // Initialize reducer w/ initialState
   const [state, dispatch] = useTodos();
   const [message, setMessage] = useState("Loading...");
-  const history = useHistory();
-
-  const handleCompleteTodo = todo => {
-    const changed = {
-      ...todo,
-      completed: !todo.completed,
-      updated_at: new Date(Date.now()),
-    };
-
-    const options = {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      data: JSON.stringify(changed),
-      url: `${apiUrl}/${todo.id}`,
-    };
-
-    dispatch({ type: EDIT_TODO, payload: changed });
-
-    Axios(options).catch(err => console.error(err));
-  };
-
-  const handleEditTodo = todo => {
-    history.push(`/todo/${todo.id}/edit`);
-  };
-
-  const handleDeleteTodo = todo => {
-    dispatch({ type: DELETE_TODO, payload: todo.id });
-
-    const options = {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      url: `${apiUrl}/${todo.id}`,
-    };
-
-    Axios(options).catch(err => console.error(err));
-  };
 
   const handleClearCompletedTodos = () =>
     dispatch({ type: CLEAR_COMPLETED_TODOS });
@@ -86,13 +47,7 @@ const TodoList = ({ todos }) => {
           />
           <ul>
             {state.todos.map(todo => (
-              <TodoItem
-                onCompleteTodo={handleCompleteTodo}
-                onEditTodo={handleEditTodo}
-                onDeleteTodo={handleDeleteTodo}
-                key={todo.uuid}
-                todo={todo}
-              />
+              <TodoItem key={todo.uuid} todo={todo} />
             ))}
           </ul>
         </>

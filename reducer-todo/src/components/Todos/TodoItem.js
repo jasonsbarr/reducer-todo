@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import TodoItemControls from "./TodoItemControls";
 
 const TodoItem = ({
   todo,
@@ -7,19 +8,7 @@ const TodoItem = ({
   onEditTodo,
   onDeleteTodo,
 } = {}) => {
-  const { id, item, completed, uuid } = todo;
-
-  const handleCompleteClick = () => {
-    onCompleteTodo(todo);
-  };
-
-  const handleEditClick = () => {
-    onEditTodo(todo);
-  };
-
-  const handleDeleteClick = () => {
-    onDeleteTodo(todo);
-  };
+  const { id, item, priority, due_at, completed, uuid } = todo;
 
   return (
     <li
@@ -32,13 +21,7 @@ const TodoItem = ({
         <p>
           <Link to={`/todo/${id}`}>{item}</Link>
         </p>
-        <button onClick={handleCompleteClick}>
-          {completed ? "⍻" : "✓"}
-        </button>
-        <button onClick={handleEditClick}>🖉</button>
-        <button id={`delete-${id}`} onClick={handleDeleteClick}>
-          ×
-        </button>
+        <TodoItemControls todo={todo} />
       </div>
     </li>
   );

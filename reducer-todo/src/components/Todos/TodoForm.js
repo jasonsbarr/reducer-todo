@@ -13,15 +13,17 @@ const TodoForm = ({ handleSubmit, todo = undefined }) => {
 
   const formValues = {
     item: todo ? todo.item : defaultValues.item,
-    due_at_date: todo.due_at
-      ? todo.due_at.toISOString().split("T")[0]
-      : defaultValues.due_at_date,
-    due_at_time: todo.due_at
-      ? todo.due_at
-          .toISOString()
-          .split("T")[1]
-          .split(".")[0]
-      : defaultValues.due_at_time,
+    due_at_date:
+      todo && todo.due_at
+        ? todo.due_at.toISOString().split("T")[0]
+        : defaultValues.due_at_date,
+    due_at_time:
+      todo && todo.due_at
+        ? todo.due_at
+            .toISOString()
+            .split("T")[1]
+            .split(".")[0]
+        : defaultValues.due_at_time,
     priority: todo ? todo.priority : defaultValues.priority,
   };
 
