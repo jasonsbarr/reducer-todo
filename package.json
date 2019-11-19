@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "json-server": "^0.15.1"
+  },
+  "scripts": {
+    "api": "json-server --watch api/db.json --port 4000"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.6.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.19.1"
+  }
+}
