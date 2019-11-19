@@ -21,6 +21,13 @@ const TodoItem = ({
         <p>
           <Link to={`/todo/${id}`}>{item}</Link>
         </p>
+        <p>
+          <span className="label">Priority:</span> {priority}
+        </p>
+        <p>
+          <span className="label">Due at:</span>
+          {due_at ? ` ${due_at.toLocaleString()}` : " No due date"}
+        </p>
         <TodoItemControls todo={todo} />
       </div>
     </li>
