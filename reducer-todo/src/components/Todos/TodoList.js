@@ -3,10 +3,10 @@ import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import {
   SET_TODOS,
-  TOGGLE_TODO_COMPLETE,
   CLEAR_COMPLETED_TODOS,
   CLEAR_ALL_TODOS,
   DELETE_TODO,
+  EDIT_TODO,
 } from "../../actions/todos";
 import useTodos from "../../hooks/useTodos";
 import { TodoItem } from ".";
@@ -27,6 +27,7 @@ const TodoList = ({ todos }) => {
       completed: !todo.completed,
       updated_at: new Date(Date.now()),
     };
+
     const options = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -34,7 +35,7 @@ const TodoList = ({ todos }) => {
       url: `${apiUrl}/${todo.id}`,
     };
 
-    dispatch({ type: TOGGLE_TODO_COMPLETE, payload: todo });
+    dispatch({ type: EDIT_TODO, payload: changed });
 
     Axios(options).catch(err => console.error(err));
   };
