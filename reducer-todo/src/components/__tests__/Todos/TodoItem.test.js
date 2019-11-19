@@ -1,7 +1,7 @@
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
+import { render, cleanup, act } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import { TodoItem } from "../../Todos";
-import expectExport from "expect";
 
 afterEach(cleanup);
 
@@ -20,7 +20,12 @@ const todos = [
 
 describe("TodoItem component tests", () => {
   test("should render a todo item", () => {
-    const { container } = render(<TodoItem todo={todos[0]} />);
+    const { container } = render(
+      <BrowserRouter>
+        <TodoItem todo={todos[0]} />
+      </BrowserRouter>,
+    );
+
     const todoItem = container.firstChild;
 
     expect(todoItem.textContent).toMatch("Do something");
@@ -28,7 +33,12 @@ describe("TodoItem component tests", () => {
   });
 
   test("should have CSS class of completed if todo is completed", () => {
-    const { container } = render(<TodoItem todo={todos[1]} />);
+    const { container } = render(
+      <BrowserRouter>
+        <TodoItem todo={todos[1]} />
+      </BrowserRouter>,
+    );
+
     const todoItem = container.firstChild;
 
     expect(todoItem.textContent).toMatch("Do something else");

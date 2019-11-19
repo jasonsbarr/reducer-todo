@@ -10,10 +10,22 @@ exports[`TodoItem component tests should render a todo item 1`] = `
     class="todo-item-container"
   >
     <p>
-      Do something
+      <a
+        href="/todo/todo-1"
+      >
+        Do something
+      </a>
     </p>
     <button>
       ✓
+    </button>
+    <button>
+      🖉
+    </button>
+    <button
+      id="delete-todo-1"
+    >
+      ×
     </button>
   </div>
 </li>
